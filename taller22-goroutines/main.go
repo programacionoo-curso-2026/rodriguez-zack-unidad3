@@ -7,12 +7,10 @@ type Order struct {
   ID     int
   Status string
 }
-func main() {
-  fmt.Print("Todas las operaciones completadas. Finalizando\n")
-}
 
 func main() {
   orders := generateOrders(20)
+  fmt.Print("Numero de ordenes %d\n"len(orders))
   fmt.Print("Todas las operaciones completadas. Finalizando\n")
 }
 func generateOrders(count int) []*Order {
