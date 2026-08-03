@@ -1,12 +1,12 @@
-##Iteración 1
-Numero de Orderenes 20
-Todas las operaciones completadas. Finalizando
+##Iteración 1 
+Numero de Orderenes 20 
+Todas las operaciones completadas. Finalizando 
 
-##Iteración 2
-Procesando orden 1 en 490ms
-Procesando orden 2 en 246ms
-Procesando orden 3 en 42ms
-Procesando orden 4 en 416ms
+##Iteración 2 
+Procesando orden 1 en 490ms 
+Procesando orden 2 en 246ms 
+Procesando orden 3 en 42ms 
+Procesando orden 4 en 416ms 
 Procesando orden 5 en 209ms
 Procesando orden 6 en 131ms
 Procesando orden 7 en 319ms
