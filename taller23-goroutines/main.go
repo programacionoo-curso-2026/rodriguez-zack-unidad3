@@ -17,5 +17,19 @@ var (
 )
 
 func main() {
-	fmt.Println("Estructura Order creada")
+	orders := generateOrders(5)
+
+	fmt.Printf("Órdenes generadas: %d\n", len(orders))
+}
+func generateOrders(count int) []*Order {
+	orders := make([]*Order, count)
+
+	for i := 0; i < count; i++ {
+		orders[i] = &Order{
+			ID:     i + 1,
+			Status: "Pendiente",
+		}
+	}
+
+	return orders
 }
