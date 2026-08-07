@@ -28,13 +28,21 @@ func main() {
 	wg.Add(3)
 
 	for i := 0; i < 3; i++ {
-	go func() {
-		defer wg.Done()
+		go func() {
+			defer wg.Done()
 
-		for _, order := range orders {
-			updateOrderStatus(order)
-		}
-	}()
+			for _, order := range orders {
+				updateOrderStatus(order)
+			}
+		}()
+	}
+
+	wg.Wait()
+
+	reportOrderStatus(orders)
+
+	fmt.Println("\nTodas las operaciones completadas.")
+	fmt.Printf("Total Actualizaciones: %d\n", totalUpdates)
 }
 func generateOrders(count int) []*Order {
 	orders := make([]*Order, count)
@@ -51,6 +59,8 @@ func generateOrders(count int) []*Order {
 func updateOrderStatus(order *Order) {
 	order.mu.Lock()
 
+	time.Sleep(time.Duration(rand.Intn(500)) * time.Millisecond)
+
 	status := []string{
 		"Procesando",
 		"Despachando",
@@ -59,9 +69,15 @@ func updateOrderStatus(order *Order) {
 
 	order.Status = status
 
-	fmt.Printf("Orden %d -> %s\n",
-		order.ID,
-		status)
+	fmt.Printf("Actualizando orden %d con estado: %s\n",
+		order.ID, status)
 
 	order.mu.Unlock()
+
+	updateMutex.Lock()
+	defer updateMutex.Unlock()
+
+	currentUpdates := totalUpdates
+	time.Sleep(5 * time.Millisecond)
+	totalUpdates = currentUpdates + 1
 }
