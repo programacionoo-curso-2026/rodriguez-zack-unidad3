@@ -1,7 +1,21 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
+
+type Order struct {
+	ID     int
+	Status string
+	mu     sync.Mutex
+}
+
+var (
+	totalUpdates int
+	updateMutex  sync.Mutex
+)
 
 func main() {
-	fmt.Println("Inicio del taller de goroutines")
+	fmt.Println("Estructura Order creada")
 }
