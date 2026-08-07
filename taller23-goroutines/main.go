@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"sync"
+	"time"
 )
 
 type Order struct {
@@ -18,9 +19,23 @@ var (
 )
 
 func main() {
-	orders := generateOrders(5)
+	rand.Seed(time.Now().UnixNano())
 
-	updateOrderStatus(orders[0])
+	var wg sync.WaitGroup
+
+	orders := generateOrders(20)
+
+	wg.Add(1)
+
+	go func() {
+		defer wg.Done()
+
+		for _, order := range orders {
+			updateOrderStatus(order)
+		}
+	}()
+
+	wg.Wait()
 }
 func generateOrders(count int) []*Order {
 	orders := make([]*Order, count)
