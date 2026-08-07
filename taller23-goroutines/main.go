@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"sync"
 )
 
@@ -19,7 +20,7 @@ var (
 func main() {
 	orders := generateOrders(5)
 
-	fmt.Printf("Órdenes generadas: %d\n", len(orders))
+	updateOrderStatus(orders[0])
 }
 func generateOrders(count int) []*Order {
 	orders := make([]*Order, count)
@@ -32,4 +33,21 @@ func generateOrders(count int) []*Order {
 	}
 
 	return orders
+}
+func updateOrderStatus(order *Order) {
+	order.mu.Lock()
+
+	status := []string{
+		"Procesando",
+		"Despachando",
+		"Entregado",
+	}[rand.Intn(3)]
+
+	order.Status = status
+
+	fmt.Printf("Orden %d -> %s\n",
+		order.ID,
+		status)
+
+	order.mu.Unlock()
 }
