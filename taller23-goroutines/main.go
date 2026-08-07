@@ -44,6 +44,7 @@ func main() {
 	fmt.Println("\nTodas las operaciones completadas.")
 	fmt.Printf("Total Actualizaciones: %d\n", totalUpdates)
 }
+
 func generateOrders(count int) []*Order {
 	orders := make([]*Order, count)
 
@@ -56,6 +57,7 @@ func generateOrders(count int) []*Order {
 
 	return orders
 }
+
 func updateOrderStatus(order *Order) {
 	order.mu.Lock()
 
@@ -80,4 +82,14 @@ func updateOrderStatus(order *Order) {
 	currentUpdates := totalUpdates
 	time.Sleep(5 * time.Millisecond)
 	totalUpdates = currentUpdates + 1
+}
+
+func reportOrderStatus(orders []*Order) {
+	fmt.Println("\nEstado final de las órdenes:")
+
+	for _, order := range orders {
+		fmt.Printf("Orden %d -> %s\n",
+			order.ID,
+			order.Status)
+	}
 }
