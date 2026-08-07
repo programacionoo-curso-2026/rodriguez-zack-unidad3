@@ -25,8 +25,9 @@ func main() {
 
 	orders := generateOrders(20)
 
-	wg.Add(1)
+	wg.Add(3)
 
+	for i := 0; i < 3; i++ {
 	go func() {
 		defer wg.Done()
 
@@ -34,8 +35,6 @@ func main() {
 			updateOrderStatus(order)
 		}
 	}()
-
-	wg.Wait()
 }
 func generateOrders(count int) []*Order {
 	orders := make([]*Order, count)
